@@ -22,9 +22,9 @@ struct SkindiagnosisApp: App {
         WindowGroup {
             // Clean Architecture: 의존성을 상위에서 주입
             let useCase = AnalyzeSkinUseCase(mlService: mlService)
-            let viewModel = SkinCheckViewModel(analyzeSkinUseCase: useCase)
+            let viewModel = SkindiagnosisViewModel(analyzeSkinUseCase: useCase)
             
-            SkinCheckView(viewModel: viewModel)
+            SkindiagnosisView(viewModel: viewModel)
         }
     }
 }

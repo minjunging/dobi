@@ -1,8 +1,8 @@
-# SkinCheck - 아키텍처 문서
+# Skindiagnosis - 아키텍처 문서
 
 ## 개요
 
-SkinCheck는 피부 병변의 양성/악성 위험도를 검사하는 iOS 앱입니다.
+Skindiagnosis는 피부 병변의 양성/악성 위험도를 검사하는 iOS 앱입니다.
 Clean Architecture 원칙을 따라 설계되었으며, 각 계층이 명확히 분리되어 있습니다.
 
 ⚠️ **중요**: 이 앱은 의료 진단 도구가 아닙니다. 2차 검진 필요 여부만 안내합니다.
@@ -40,7 +40,7 @@ Clean Architecture 원칙을 따라 설계되었으며, 각 계층이 명확히 
 ## 프로젝트 구조
 
 ```
-Skincheck/
+Skindiagnosis/
 ├── Domain/                          # 비즈니스 로직 계층
 │   ├── Entities/                    # 도메인 엔티티 (데이터 모델)
 │   │   └── SkinAnalysisResult.swift # 분석 결과 엔티티
@@ -53,18 +53,18 @@ Skincheck/
 │
 ├── Presentation/                    # 프레젠테이션 계층
 │   ├── Views/                       # SwiftUI 뷰
-│   │   ├── SkinCheckView.swift      # 메인 화면
+│   │   ├── SkindiagnosisView.swift      # 메인 화면
 │   │   └── Components/              # 재사용 가능한 컴포넌트
 │   │       ├── WarningPopup.swift   # 경고 팝업
 │   │       ├── ResultCard.swift     # 결과 카드
 │   │       └── CameraView.swift     # 카메라 뷰
 │   └── ViewModels/                  # 뷰모델 (MVVM)
-│       └── SkinCheckViewModel.swift # 메인 뷰모델
+│       └── SkindiagnosisViewModel.swift # 메인 뷰모델
 │
 ├── Resources/                       # 리소스 파일
 │   └── AppColors.swift              # 앱 색상 팔레트
 │
-└── SkincheckApp.swift               # 앱 진입점 (Dependency Injection)
+└── SkindiagnosisApp.swift               # 앱 진입점 (Dependency Injection)
 ```
 
 ---
@@ -195,7 +195,7 @@ class RealMLInferenceService: MLInferenceServiceProtocol {
 1. `.mlmodel` 파일을 Xcode 프로젝트에 추가
 2. Xcode가 자동 생성하는 Swift 클래스 확인
 3. `RealMLInferenceService` 구현
-4. `SkincheckApp.swift`에서 `MockMLInferenceService` → `RealMLInferenceService` 교체
+4. `SkindiagnosisApp.swift`에서 `MockMLInferenceService` → `RealMLInferenceService` 교체
 
 ---
 
@@ -205,12 +205,12 @@ class RealMLInferenceService: MLInferenceServiceProtocol {
 
 #### 📁 ViewModels (MVVM 패턴)
 
-##### `SkinCheckViewModel.swift`
+##### `SkindiagnosisViewModel.swift`
 메인 화면의 비즈니스 로직 담당
 
 ```swift
 @MainActor
-class SkinCheckViewModel: ObservableObject {
+class SkindiagnosisViewModel: ObservableObject {
     // Published 상태
     @Published var loadingState: LoadingState = .idle
     @Published var analysisResult: SkinAnalysisResult?
@@ -249,13 +249,13 @@ class SkinCheckViewModel: ObservableObject {
 
 #### 📁 Views (SwiftUI)
 
-##### `SkinCheckView.swift`
+##### `SkindiagnosisView.swift`
 메인 화면 (Toss 스타일 미니멀 디자인)
 
 **화면 구성**:
 ```
 ┌─────────────────────────────┐
-│        SkinCheck            │  ← 헤더
+│        Skindiagnosis            │  ← 헤더
 │   피부 병변 위험도 검사      │
 ├─────────────────────────────┤
 │                             │
@@ -358,11 +358,11 @@ struct AppColors {
     ↓
 1. 사진 선택/촬영
     ↓
-[SkinCheckView]
+[SkindiagnosisView]
     ↓
 2. "분석 시작" 버튼 탭
     ↓
-[SkinCheckViewModel]
+[SkindiagnosisViewModel]
     ↓
 3. analyzeSkin() 호출
     ↓
@@ -378,11 +378,11 @@ struct AppColors {
     ↓
 6. SkinAnalysisResult 생성
     ↓
-[SkinCheckViewModel]
+[SkindiagnosisViewModel]
     ↓
 7. @Published 상태 업데이트
     ↓
-[SkinCheckView]
+[SkindiagnosisView]
     ↓
 8. UI 자동 리렌더링
     ↓
@@ -395,11 +395,11 @@ struct AppColors {
 
 ## 의존성 주입 (Dependency Injection)
 
-### SkincheckApp.swift
+### SkindiagnosisApp.swift
 
 ```swift
 @main
-struct SkincheckApp: App {
+struct SkindiagnosisApp: App {
     // 의존성 생성 (최상위에서 관리)
     private let mlService: MLInferenceServiceProtocol = MockMLInferenceService()
     
@@ -407,9 +407,9 @@ struct SkincheckApp: App {
         WindowGroup {
             // 의존성 주입 체인
             let useCase = AnalyzeSkinUseCase(mlService: mlService)
-            let viewModel = SkinCheckViewModel(analyzeSkinUseCase: useCase)
+            let viewModel = SkindiagnosisViewModel(analyzeSkinUseCase: useCase)
             
-            SkinCheckView(viewModel: viewModel)
+            SkindiagnosisView(viewModel: viewModel)
         }
     }
 }
@@ -467,7 +467,7 @@ struct SkincheckApp: App {
 **단계**:
 1. `.mlmodel` 파일 추가
 2. `RealMLInferenceService` 구현
-3. `SkincheckApp.swift`에서 교체
+3. `SkindiagnosisApp.swift`에서 교체
 
 ```swift
 // Before
@@ -514,11 +514,11 @@ func testBenignClassification() async throws {
 ### UI Tests
 
 ```swift
-// SkinCheckViewModelTests.swift
+// SkindiagnosisViewModelTests.swift
 func testWarningPopupShowsForHighRisk() async {
     // Given
     let mockService = MockMLInferenceService(mode: .highRisk)
-    let viewModel = SkinCheckViewModel(...)
+    let viewModel = SkindiagnosisViewModel(...)
     
     // When
     await viewModel.analyzeSkin()

@@ -1,6 +1,6 @@
 # 애니메이션 가이드
 
-SkinCheck 앱의 프리미엄 애니메이션 시스템을 설명합니다.
+Skindiagnosis 앱의 프리미엄 애니메이션 시스템을 설명합니다.
 
 ---
 
@@ -149,7 +149,7 @@ withAnimation(.easeIn(duration: 0.2).delay(0.1)) {
 
 ---
 
-### 3. 메인 화면 (`SkinCheckView.swift`)
+### 3. 메인 화면 (`SkindiagnosisView.swift`)
 
 #### 이미지 선택 시
 ```swift

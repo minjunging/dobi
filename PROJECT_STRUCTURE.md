@@ -1,13 +1,13 @@
 # 📂 프로젝트 구조
 
-SkinCheck 프로젝트의 전체 파일 구조와 각 파일의 역할을 설명합니다.
+Skindiagnosis 프로젝트의 전체 파일 구조와 각 파일의 역할을 설명합니다.
 
 ---
 
 ## 📁 전체 디렉토리 구조
 
 ```
-SkinCheck/
+Skindiagnosis/
 ├── 📄 README.md                          # 프로젝트 개요 및 사용 가이드
 ├── 📄 QUICKSTART.md                      # 빠른 시작 가이드 (5분 내 실행)
 ├── 📄 ARCHITECTURE.md                    # 상세 아키텍처 문서
@@ -15,14 +15,14 @@ SkinCheck/
 ├── 📄 CHANGELOG.md                       # 변경 이력
 ├── 📄 PROJECT_STRUCTURE.md               # 이 문서
 │
-└── Skincheck/                            # Xcode 프로젝트 루트
-    ├── Skincheck.xcodeproj/              # Xcode 프로젝트 파일
+└── Skindiagnosis/                            # Xcode 프로젝트 루트
+    ├── Skindiagnosis.xcodeproj/              # Xcode 프로젝트 파일
     │   ├── project.pbxproj
     │   └── project.xcworkspace/
     │
-    ├── Skincheck/                        # 메인 소스 코드
+    ├── Skindiagnosis/                        # 메인 소스 코드
     │   │
-    │   ├── 🚀 SkincheckApp.swift         # 앱 진입점 (Dependency Injection)
+    │   ├── 🚀 SkindiagnosisApp.swift         # 앱 진입점 (Dependency Injection)
     │   │
     │   ├── 🎯 Domain/                    # 도메인 계층 (비즈니스 로직)
     │   │   ├── Entities/                 # 엔티티 (데이터 모델)
@@ -36,13 +36,13 @@ SkinCheck/
     │   │
     │   ├── 📱 Presentation/              # 프레젠테이션 계층 (UI)
     │   │   ├── Views/                    # SwiftUI 뷰
-    │   │   │   ├── SkinCheckView.swift   # 메인 화면
+    │   │   │   ├── SkindiagnosisView.swift   # 메인 화면
     │   │   │   └── Components/           # 재사용 컴포넌트
     │   │   │       ├── WarningPopup.swift
     │   │   │       ├── ResultCard.swift
     │   │   │       └── CameraView.swift
     │   │   └── ViewModels/               # 뷰모델 (MVVM)
-    │   │       └── SkinCheckViewModel.swift
+    │   │       └── SkindiagnosisViewModel.swift
     │   │
     │   ├── 🎨 Resources/                 # 리소스 파일
     │   │   └── AppColors.swift           # 색상 팔레트
@@ -54,14 +54,14 @@ SkinCheck/
     │   │
     │   ├── ContentView.swift             # (사용 안 함, 초기 템플릿)
     │   ├── Persistence.swift             # (사용 안 함, 초기 템플릿)
-    │   └── Skincheck.xcdatamodeld/       # (사용 안 함, 초기 템플릿)
+    │   └── Skindiagnosis.xcdatamodeld/       # (사용 안 함, 초기 템플릿)
     │
-    ├── SkincheckTests/                   # Unit Tests
-    │   └── SkincheckTests.swift
+    ├── SkindiagnosisTests/                   # Unit Tests
+    │   └── SkindiagnosisTests.swift
     │
-    └── SkincheckUITests/                 # UI Tests
-        ├── SkincheckUITests.swift
-        └── SkincheckUITestsLaunchTests.swift
+    └── SkindiagnosisUITests/                 # UI Tests
+        ├── SkindiagnosisUITests.swift
+        └── SkindiagnosisUITestsLaunchTests.swift
 ```
 
 ---
@@ -83,13 +83,13 @@ SkinCheck/
 
 ### 🚀 앱 진입점
 
-#### `SkincheckApp.swift`
+#### `SkindiagnosisApp.swift`
 
 **역할**: 앱의 시작점, 의존성 주입
 
 ```swift
 @main
-struct SkincheckApp: App {
+struct SkindiagnosisApp: App {
     // 의존성 생성 (최상위에서 관리)
     private let mlService: MLInferenceServiceProtocol = MockMLInferenceService()
     
@@ -97,8 +97,8 @@ struct SkincheckApp: App {
         WindowGroup {
             // 의존성 주입 체인
             let useCase = AnalyzeSkinUseCase(mlService: mlService)
-            let viewModel = SkinCheckViewModel(analyzeSkinUseCase: useCase)
-            SkinCheckView(viewModel: viewModel)
+            let viewModel = SkindiagnosisViewModel(analyzeSkinUseCase: useCase)
+            SkindiagnosisView(viewModel: viewModel)
         }
     }
 }
@@ -203,7 +203,7 @@ class AnalyzeSkinUseCase {
 
 **교체 방법**:
 ```swift
-// SkincheckApp.swift
+// SkindiagnosisApp.swift
 
 // Before (개발)
 private let mlService = MockMLInferenceService()
@@ -216,7 +216,7 @@ private let mlService = try! RealMLInferenceService()
 
 ### 📱 Presentation Layer (UI)
 
-#### `Presentation/ViewModels/SkinCheckViewModel.swift`
+#### `Presentation/ViewModels/SkindiagnosisViewModel.swift`
 
 **역할**: 메인 화면의 상태 및 비즈니스 로직 관리 (MVVM 패턴)
 
@@ -253,7 +253,7 @@ View (자동 리렌더링)
 
 ---
 
-#### `Presentation/Views/SkinCheckView.swift`
+#### `Presentation/Views/SkindiagnosisView.swift`
 
 **역할**: 메인 화면 UI (Toss 스타일)
 
@@ -416,14 +416,14 @@ extension Color {
        │
        ▼
 ┌─────────────────────────┐
-│   SkinCheckView         │
+│   SkindiagnosisView         │
 │   - PhotosPicker        │
 │   - "분석 시작" 버튼      │
 └──────┬──────────────────┘
        │ Button Tap
        ▼
 ┌─────────────────────────┐
-│ SkinCheckViewModel      │
+│ SkindiagnosisViewModel      │
 │ - analyzeSkin()         │
 │ - loadingState 변경      │
 └──────┬──────────────────┘
@@ -450,14 +450,14 @@ extension Color {
        │
        ▼
 ┌─────────────────────────┐
-│ SkinCheckViewModel      │
+│ SkindiagnosisViewModel      │
 │ - @Published 업데이트    │
 │ - 경고 팝업 표시 결정     │
 └──────┬──────────────────┘
        │ State Changed
        ▼
 ┌─────────────────────────┐
-│   SkinCheckView         │
+│   SkindiagnosisView         │
 │   (자동 리렌더링)         │
 │   - ResultCard 표시      │
 │   - WarningPopup (80%+) │
@@ -472,7 +472,7 @@ extension Color {
 ┌─────────────────────────────────────────┐
 │         Presentation Layer              │
 │                                         │
-│  SkinCheckView ──→ SkinCheckViewModel   │
+│  SkindiagnosisView ──→ SkindiagnosisViewModel   │
 │       ↓                    ↓            │
 │  Components        AnalyzeSkinUseCase   │
 │  - WarningPopup            ↓            │
@@ -560,11 +560,11 @@ Swift 파일: 9개
 
 ### "메인 화면 수정은?"
 
-→ `Presentation/Views/SkinCheckView.swift`
+→ `Presentation/Views/SkindiagnosisView.swift`
 
 ### "ViewModel 로직은?"
 
-→ `Presentation/ViewModels/SkinCheckViewModel.swift`
+→ `Presentation/ViewModels/SkindiagnosisViewModel.swift`
 
 ---
 
@@ -574,7 +574,7 @@ Swift 파일: 9개
 
 **수정 파일**:
 - ✏️ `Data/Services/MLInferenceService.swift` - `RealMLInferenceService` 구현
-- ✏️ `SkincheckApp.swift` - Mock → Real 교체
+- ✏️ `SkindiagnosisApp.swift` - Mock → Real 교체
 
 ### Phase 2: 분석 히스토리 기능
 
@@ -602,8 +602,8 @@ Swift 파일: 9개
 
 ```
 ✅ PascalCase.swift
-   - SkinCheckView.swift
-   - SkinCheckViewModel.swift
+   - SkindiagnosisView.swift
+   - SkindiagnosisViewModel.swift
    - AnalyzeSkinUseCase.swift
 
 ❌ camelCase.swift, snake_case.swift
@@ -634,7 +634,7 @@ import UIKit
 // import Alamofire
 
 // 3. 내부 모듈
-// import SkinCheckCore
+// import SkindiagnosisCore
 ```
 
 ---

@@ -1,6 +1,6 @@
 # 🚀 빠른 시작 가이드
 
-5분 안에 SkinCheck 앱을 실행해보세요!
+5분 안에 Skindiagnosis 앱을 실행해보세요!
 
 ---
 
@@ -9,8 +9,8 @@
 ### 1️⃣ Xcode에서 프로젝트 열기
 
 ```bash
-cd /Users/sinjong-won/ted.urssu/SkinCheck
-open Skincheck/Skincheck.xcodeproj
+cd /Users/sinjong-won/ted.urssu/Skindiagnosis
+open Skindiagnosis/Skindiagnosis.xcodeproj
 ```
 
 ---
@@ -19,8 +19,8 @@ open Skincheck/Skincheck.xcodeproj
 
 Xcode가 열리면:
 
-1. 좌측 네비게이터에서 **Skincheck** 프로젝트 클릭
-2. **TARGETS** → **Skincheck** 선택
+1. 좌측 네비게이터에서 **Skindiagnosis** 프로젝트 클릭
+2. **TARGETS** → **Skindiagnosis** 선택
 3. **Info** 탭 클릭
 4. **Custom iOS Target Properties** 섹션에서 `+` 버튼 클릭
 5. 다음 2개 항목 추가:
@@ -75,7 +75,7 @@ Xcode가 열리면:
 
 ### 고위험 모드 활성화
 
-`SkincheckApp.swift` 파일 열기:
+`SkindiagnosisApp.swift` 파일 열기:
 
 ```swift
 // 현재 (랜덤 모드)
@@ -95,7 +95,7 @@ private let mlService: MLInferenceServiceProtocol = MockMLInferenceService(mode:
 
 ```
 ┌─────────────────────────────┐
-│       SkinCheck             │
+│       Skindiagnosis             │
 │   피부 병변 위험도 검사      │
 │                             │
 │   ┌─────────────────────┐   │
@@ -113,7 +113,7 @@ private let mlService: MLInferenceServiceProtocol = MockMLInferenceService(mode:
 
 ```
 ┌─────────────────────────────┐
-│       SkinCheck             │
+│       Skindiagnosis             │
 │   피부 병변 위험도 검사      │
 │                             │
 │   ┌─────────────────────┐   │
@@ -129,7 +129,7 @@ private let mlService: MLInferenceServiceProtocol = MockMLInferenceService(mode:
 
 ```
 ┌─────────────────────────────┐
-│       SkinCheck             │
+│       Skindiagnosis             │
 │   피부 병변 위험도 검사      │
 │                             │
 │   ┌─────────────────────┐   │
@@ -180,7 +180,7 @@ private let mlService: MLInferenceServiceProtocol = MockMLInferenceService(mode:
 
 1. [2️⃣ 권한 설정 추가](#2️⃣-권한-설정-추가) 단계 다시 확인
 2. 앱 삭제 후 재설치
-3. iPhone 설정 → Skincheck → 카메라 권한 확인
+3. iPhone 설정 → Skindiagnosis → 카메라 권한 확인
 
 ---
 
@@ -232,8 +232,8 @@ xcodebuild -version
 
 2. **주요 파일 탐색**
    ```
-   SkinCheckView.swift          ← 메인 화면 UI
-   SkinCheckViewModel.swift     ← 비즈니스 로직
+   SkindiagnosisView.swift          ← 메인 화면 UI
+   SkindiagnosisViewModel.swift     ← 비즈니스 로직
    AnalyzeSkinUseCase.swift     ← 분석 유즈케이스
    MLInferenceService.swift     ← ML 서비스 (Mock)
    ```
@@ -247,7 +247,7 @@ xcodebuild -version
 1. CoreML 모델 파일(`.mlmodel`) 준비
 2. Xcode 프로젝트에 추가
 3. `RealMLInferenceService` 구현
-4. `SkincheckApp.swift`에서 교체
+4. `SkindiagnosisApp.swift`에서 교체
 
 자세한 방법: [DEVELOPMENT_GUIDE.md - ML 모델 통합](DEVELOPMENT_GUIDE.md#ml-모델-통합)
 
@@ -256,8 +256,8 @@ xcodebuild -version
 ## 🎯 주요 파일 위치
 
 ```
-Skincheck/Skincheck/
-├── SkincheckApp.swift                    ← 🚀 앱 시작점
+Skindiagnosis/Skindiagnosis/
+├── SkindiagnosisApp.swift                    ← 🚀 앱 시작점
 ├── Domain/
 │   ├── Entities/
 │   │   └── SkinAnalysisResult.swift      ← 📊 결과 데이터 모델
@@ -268,12 +268,12 @@ Skincheck/Skincheck/
 │       └── MLInferenceService.swift      ← 🤖 ML 서비스
 ├── Presentation/
 │   ├── Views/
-│   │   ├── SkinCheckView.swift           ← 📱 메인 화면
+│   │   ├── SkindiagnosisView.swift           ← 📱 메인 화면
 │   │   └── Components/
 │   │       ├── WarningPopup.swift        ← ⚠️ 경고 팝업
 │   │       └── ResultCard.swift          ← 📋 결과 카드
 │   └── ViewModels/
-│       └── SkinCheckViewModel.swift      ← 🔄 상태 관리
+│       └── SkindiagnosisViewModel.swift      ← 🔄 상태 관리
 └── Resources/
     └── AppColors.swift                   ← 🎨 색상 팔레트
 ```
@@ -287,7 +287,7 @@ Skincheck/Skincheck/
 1. **Xcode Preview 활용**
    ```swift
    #Preview {
-       SkinCheckView(viewModel: .preview)
+       SkindiagnosisView(viewModel: .preview)
    }
    ```
    - `Cmd + Option + P`: Preview 시작/재시작
@@ -310,7 +310,7 @@ Skincheck/Skincheck/
 
 - **문서**: [README.md](README.md), [ARCHITECTURE.md](ARCHITECTURE.md)
 - **개발 가이드**: [DEVELOPMENT_GUIDE.md](DEVELOPMENT_GUIDE.md)
-- **이슈 리포트**: [GitHub Issues](https://github.com/your-username/SkinCheck/issues)
+- **이슈 리포트**: [GitHub Issues](https://github.com/your-username/Skindiagnosis/issues)
 
 ---
 

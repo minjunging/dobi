@@ -1,6 +1,6 @@
 //
-//  SkinCheckView.swift
-//  Skincheck
+//  SkindiagnosisView.swift
+//  Skindiagnosis
 //
 //  Created by 신종원 on 2/2/26.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 
-// MARK: - Skin Check View
+// MARK: - Skindiagnosis View
 
 /// 피부 검사 메인 화면
 /// Toss, Apple Health 스타일의 프리미엄 UI
@@ -23,15 +23,15 @@ import PhotosUI
 /// - 부드럽고 의도적인 움직임
 /// - 상태 변화가 자연스럽게 연결됨
 /// - bounce 없는 차분한 느낌
-struct SkinCheckView: View {
+struct SkindiagnosisView: View {
     
     // MARK: - Properties
     
-    @StateObject private var viewModel: SkinCheckViewModel
+    @StateObject private var viewModel: SkindiagnosisViewModel
     
     // MARK: - Initializer
     
-    init(viewModel: SkinCheckViewModel) {
+    init(viewModel: SkindiagnosisViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     
@@ -92,7 +92,7 @@ struct SkinCheckView: View {
     /// 상단 헤더 영역 (Toss 스타일 - 미니멀)
     private var headerView: some View {
         VStack(spacing: 16) {
-            Text("SkinCheck")
+            Text("Skindiagnosis")
                 .font(.system(size: 36, weight: .bold))
                 .foregroundColor(AppColors.textPrimary)
             
@@ -344,7 +344,7 @@ struct SkinCheckView: View {
     // Mock 서비스로 프리뷰 생성
     let mockService = MockMLInferenceService(mode: .random)
     let useCase = AnalyzeSkinUseCase(mlService: mockService)
-    let viewModel = SkinCheckViewModel(analyzeSkinUseCase: useCase)
+    let viewModel = SkindiagnosisViewModel(analyzeSkinUseCase: useCase)
     
-    return SkinCheckView(viewModel: viewModel)
+    return SkindiagnosisView(viewModel: viewModel)
 }

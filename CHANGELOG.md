@@ -32,13 +32,13 @@
   - UIImage → CVPixelBuffer 변환 유틸리티
 
 ##### Presentation Layer
-- **SkinCheckView** 메인 화면
+- **SkindiagnosisView** 메인 화면
   - Toss 스타일 미니멀 UI
   - 4가지 상태별 UI 분기 (idle, loading, success, error)
   - 스프링 애니메이션 적용
   - 사진 선택/카메라 촬영 지원
 
-- **SkinCheckViewModel**
+- **SkindiagnosisViewModel**
   - MVVM 패턴 적용
   - 비동기 이미지 분석 처리
   - 상태 관리 (@Published)

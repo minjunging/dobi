@@ -1,6 +1,6 @@
 //
-//  SkinCheckViewModel.swift
-//  Skincheck
+//  SkindiagnosisViewModel.swift
+//  Skindiagnosis
 //
 //  Created by 신종원 on 2/2/26.
 //
@@ -39,7 +39,7 @@ enum LoadingState: Equatable {
     }
 }
 
-// MARK: - Skin Check View Model
+// MARK: - Skindiagnosis View Model
 
 /// 피부 검사 화면의 ViewModel
 /// MVVM 패턴의 핵심 - View와 비즈니스 로직 분리
@@ -50,7 +50,7 @@ enum LoadingState: Equatable {
 /// - View에 표시할 상태 관리
 /// - 애니메이션 트리거 제어
 @MainActor
-class SkinCheckViewModel: ObservableObject {
+class SkindiagnosisViewModel: ObservableObject {
     
     // MARK: - Published Properties
     

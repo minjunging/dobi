@@ -1,6 +1,6 @@
 //
 //  WarningPopup.swift
-//  Skincheck
+//  Skindiagnosis
 //
 //  Created by 신종원 on 2/2/26.
 //
